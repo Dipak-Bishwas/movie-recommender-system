@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommender System</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Optional for icons -->
+</head>
+<body class="font-sans bg-gradient-to-r from-blue-50 to-indigo-50 text-gray-800 m-0 p-0">
+
+    <!-- Title -->
+    <h1 class="text-5xl text-center mt-10 text-indigo-700 font-semibold">Movie Recommender System</h1>
+
+    <!-- Form Section -->
+    <form method="POST" action="/recommend" class="max-w-2xl mx-auto mt-10 p-8 bg-white rounded-xl shadow-lg border border-indigo-200">
+        <label for="movie" class="text-xl font-medium text-gray-700 mb-4 block">Select or type a movie:</label>
+        <select name="movie" id="movie" class="w-full p-3 text-lg bg-indigo-50 border border-gray-300 rounded-lg mb-6 focus:outline-none focus:border-indigo-500">
+            {% for movie in movie_list %}
+                <option value="{{ movie }}">{{ movie }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="w-full p-3 text-lg font-semibold bg-gradient-to-r from-indigo-500 to-blue-500 text-white rounded-lg hover:from-indigo-600 hover:to-blue-600 transition-transform duration-200 transform hover:scale-105 shadow-md">Show Recommendations</button>
+    </form>
+
+    <!-- Recommendations Section -->
+    {% if recommendations %}
+        <h2 class="text-3xl text-center mt-12 text-indigo-700 font-semibold">Recommended Movies</h2>
+        <div class="flex flex-wrap justify-center mt-6 gap-6">
+            {% for name, poster in recommendations %}
+                <div class="w-60 p-4 rounded-lg text-center shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105 bg-indigo-100"> <!-- Reduced background color -->
+                    <img src="{{ poster }}" alt="{{ name }}" class="w-full h-72 object-cover rounded-lg mb-4 shadow-sm">
+                    <p class="text-lg font-medium text-gray-700 mb-2">{{ name }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+</body>
+</html>
